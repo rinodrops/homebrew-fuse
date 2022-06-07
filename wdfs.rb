@@ -20,7 +20,7 @@ class Wdfs < Formula
   # macFUSE checker is removed
 
   on_linux do
-    depends_on "libfuse"
+    depends_on "libfuse@2"
   end
 
   def install
