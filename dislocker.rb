@@ -11,13 +11,9 @@ class Dislocker < Formula
   end
 
   depends_on "cmake" => :build
+  depends_on "libfuse@2"
+  depends_on :linux # on macOS, requires closed-source macFUSE
   depends_on "mbedtls@2"
-
-  # macFUSE checker is removed
-
-  on_linux do
-    depends_on "libfuse@2"
-  end
 
   def install
     args = std_cmake_args + %w[
@@ -27,18 +23,6 @@ class Dislocker < Formula
     system "cmake", *args, "."
     system "make"
     system "make", "install"
-  end
-
-  def caveats
-    on_macos do
-      <<~EOS
-        The reasons for disabling this formula can be found here:
-          https://github.com/Homebrew/homebrew-core/pull/64491
-
-        An external tap may provide a replacement formula. See:
-          https://docs.brew.sh/Interesting-Taps-and-Forks
-      EOS
-    end
   end
 
   test do
