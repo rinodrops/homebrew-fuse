@@ -10,35 +10,19 @@ class Squashfuse < Formula
   end
 
   depends_on "pkg-config" => :build
+  depends_on "libfuse"
+  depends_on :linux # on macOS, requires closed-source macFUSE
   depends_on "lz4"
   depends_on "lzo"
   depends_on "squashfs"
   depends_on "xz"
   depends_on "zstd"
 
-  # macFUSE checker is removed
-
-  on_linux do
-    depends_on "libfuse"
-  end
-
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--prefix=#{prefix}"
     system "make", "install"
-  end
-
-  def caveats
-    on_macos do
-      <<~EOS
-        The reasons for disabling this formula can be found here:
-          https://github.com/Homebrew/homebrew-core/pull/64491
-
-        An external tap may provide a replacement formula. See:
-          https://docs.brew.sh/Interesting-Taps-and-Forks
-      EOS
-    end
   end
 
   test do
