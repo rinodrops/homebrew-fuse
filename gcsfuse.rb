@@ -12,10 +12,12 @@ class Gcsfuse < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "696f0b6e8108d249b272c2bcca1f4ac292af48ba775ffc57254e3f2afdda3cd4"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "ae1556ce802d2e6ffe6be4ee1c8ff302ec715e46c5542b5b100415a3c70ec8f3"
   end
 
-  depends_on "go" => :build
+  # gcc-11: The build tool has reset ENV; --env=std required.
+  depends_on "go@1.19" => :build
   depends_on "libfuse"
   depends_on :linux # on macOS, requires closed-source macFUSE
 
